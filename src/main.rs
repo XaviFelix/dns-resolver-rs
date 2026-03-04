@@ -1,4 +1,5 @@
 mod cli;
+mod types;
 
 use clap::Parser;
 use tracing::Level;
