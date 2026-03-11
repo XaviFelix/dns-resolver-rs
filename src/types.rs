@@ -1,3 +1,4 @@
+use crate::cli::CliRecordType;
 use serde::{Deserialize, Serialize};
 
 // DNS response packet, returned by either stub or recursive implementation .
@@ -128,6 +129,21 @@ impl std::fmt::Display for RecordData {
                 )
             }
             RecordData::Unknown(raw) => write!(f, "{}", raw),
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
+pub struct CacheKey {
+    pub domain: String,
+    pub record_type: String,
+}
+
+impl CacheKey {
+    pub fn new(domain: &str, record_type: &CliRecordType) -> Self {
+        CacheKey {
+            domain: domain.to_lowercase(),
+            record_type: record_type.to_string(),
         }
     }
 }
